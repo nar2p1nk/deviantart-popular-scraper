@@ -3,8 +3,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-import requests
-import statistics
+import sqlite3
 
 url = 'https://www.deviantart.com/popular/deviations'
 
@@ -15,6 +14,7 @@ htmlClass = 'uU5En = deviantion title| MvjoN = user data| ._3_LJY = image|_121Hz
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 driver.get(url)
+
 
 soup = BeautifulSoup(driver.page_source,'html.parser')
 
@@ -34,6 +34,19 @@ data = []
 
 y = 0
 
+
+con = sqlite3.connect('deviantart.db')
+
+cur = con.cursor()
+
+cur.execute('''create TABLE IF NOT EXISTS posts(
+title TEXT NOT NULL,
+images TEXT NOT NULL,
+username TEXT NOT NULL,
+userProfilePicture TEXT NOT NULL,
+userProfileLink TEXT NOT NULL
+            )''')
+
 for x in responseTitle:
 
     parse = {
@@ -43,6 +56,8 @@ for x in responseTitle:
         'user profile':responseUserProfile[y]['src'],
         'user profile link':'https://www.deviantart.com/' + responseUsername[y].get_text()
     }
+
+    cur.execute('''INSERT INTO posts) VALUES(%s,%s,%s,%s,https://www.deviantart.com/%s)'''% (x.get_text(),responseImages[y].img['src'],responseUsername[y].get_text(),responseUserProfile[y]['src'],responseUsername[y].get_text()))
 
     print(parse)
 
