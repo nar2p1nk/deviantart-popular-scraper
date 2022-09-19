@@ -37,6 +37,9 @@ driver.get(postLink)
 
 soup2 = BeautifulSoup(driver.page_source,'html.parser')
 
-print(soup2)
+postDatas = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
 
+favourites = postDatas.contents[0].contents[0].contents
+
+print(favourites)
 
