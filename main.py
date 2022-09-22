@@ -1,7 +1,7 @@
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import string
 url = 'https://www.deviantart.com/popular/deviations'
@@ -10,7 +10,9 @@ htmlClass = 'uU5En = deviantion title| MvjoN = user data| ._3_LJY = image|_121Hz
 
 #@PATH = r'/usercode.chomedriver'
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+#driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
+driver = webdriver.Firefox()
 
 driver.get(url)
 
@@ -39,7 +41,14 @@ soup2 = BeautifulSoup(driver.page_source,'html.parser')
 
 postDatas = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
 
-favourites = postDatas.contents[0].contents[0].contents
+numFavourites = postDatas.contents[0].contents[0].contents[0].contents[0].contents[0].contents[1]
 
-print(favourites)
+numComments = postDatas.contents[0].contents[1].contents[0].contents[0].contents[0].contents[1]
+
+numViews = postDatas.contents[0].contents[2].contents[0].contents[1].contents[0]
+
+#postCommentsData =  soup2.find_all('div',class_='_2VfPz _1LomQ')
+
+#print(postCommentsData)
+
 
