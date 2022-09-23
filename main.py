@@ -1,7 +1,7 @@
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium import webdriver
+from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import string
 url = 'https://www.deviantart.com/popular/deviations'
@@ -49,8 +49,10 @@ numComments = postDatas.contents[0].contents[1].contents[0].contents[0].contents
 
 numViews = postDatas.contents[0].contents[2].contents[0].contents[1].contents[0]
 
+commentsLoadMoreButton = driver.find_element(By.CLASS_NAME,'_1lBsK._3_MJY._2vim0._1FKeR').click()
+
 #postCommentsData =  soup2.find_all('div',class_='_2VfPz _1LomQ')
 
-print(originalImage)
+#print(postCommentsData)
 
 
