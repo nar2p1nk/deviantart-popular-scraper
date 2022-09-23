@@ -31,13 +31,15 @@ postTitle = divCard.contents[0]['aria-label']
 
 postLink = divCard.contents[0]['href']
 
-postImage = divCard.contents[0].contents[0].contents[0]['src']
+displayImage = divCard.contents[0].contents[0].contents[0]['src']
 
 postImageSrcSet = divCard.contents[0].contents[0].contents[0]['srcset']
 
 driver.get(postLink)
 
 soup2 = BeautifulSoup(driver.page_source,'html.parser')
+
+originalImage = soup2.find('img',class_='TZM0T _2NIJr')['src']
 
 postDatas = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
 
@@ -49,6 +51,6 @@ numViews = postDatas.contents[0].contents[2].contents[0].contents[1].contents[0]
 
 #postCommentsData =  soup2.find_all('div',class_='_2VfPz _1LomQ')
 
-#print(postCommentsData)
+print(originalImage)
 
 
