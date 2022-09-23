@@ -1,9 +1,11 @@
-
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import string
+
+ws = string.whitespace
+
 url = 'https://www.deviantart.com/popular/deviations'
 
 htmlClass = 'uU5En = deviantion title| MvjoN = user data| ._3_LJY = image|_121Hz'
@@ -45,14 +47,16 @@ postDatas = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
 
 numFavourites = postDatas.contents[0].contents[0].contents[0].contents[0].contents[0].contents[1]
 
-numComments = postDatas.contents[0].contents[1].contents[0].contents[0].contents[0].contents[1]
+numComments = postDatas.contents[0].contents[1].contents[0].contents[0].contents[0].contents[1].contents[0].contents[0]
 
 numViews = postDatas.contents[0].contents[2].contents[0].contents[1].contents[0]
 
-commentsLoadMoreButton = driver.find_element(By.CLASS_NAME,'_1lBsK._3_MJY._2vim0._1FKeR').click()
 
-#postCommentsData =  soup2.find_all('div',class_='_2VfPz _1LomQ')
+postCommentsParent =  soup2.find('div',class_='_1YhYy')
 
-#print(postCommentsData)
+commentsList = postCommentsParent.contents[0].contents[1].contents[0].contents[0].contents[0].contents[0].contents
+
+print(numComments,ws,len(commentsList),commentsList)
+
 
 
