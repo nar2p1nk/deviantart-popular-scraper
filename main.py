@@ -43,20 +43,25 @@ soup2 = BeautifulSoup(driver.page_source,'html.parser')
 
 originalImage = soup2.find('img',class_='TZM0T _2NIJr')['src']
 
-postDatas = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
+#description = soup2.find('div',id='description')
 
-numFavourites = postDatas.contents[0].contents[0].contents[0].contents[0].contents[0].contents[1]
+postNumbers = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
 
-numComments = postDatas.contents[0].contents[1].contents[0].contents[0].contents[0].contents[1].contents[0].contents[0]
+numFavourites = postNumbers.contents[0].contents[0].contents[0].contents[0].contents[0].contents[1]
 
-numViews = postDatas.contents[0].contents[2].contents[0].contents[1].contents[0]
+numComments = postNumbers.contents[0].contents[1].contents[0].contents[0].contents[0].contents[1].contents[0].contents[0]
 
+numViews = postNumbers.contents[0].contents[2].contents[0].contents[1].contents[0]
 
-postCommentsParent =  soup2.find('div',class_='_1YhYy')
+timePosted = soup2.find('span',class_='_12Yqs _1lf7Q')
 
-commentsList = postCommentsParent.contents[0].contents[1].contents[0].contents[0].contents[0].contents[0].contents
+print(timePosted)
 
-print(numComments,ws,len(commentsList),commentsList)
+#postCommentsParent =  soup2.find('div',class_='_1YhYy')
+
+#commentsList = postCommentsParent.contents[0].contents[1].contents[0].contents[0].contents[0].contents[0].contents[1].contents[0].contents[0].contents[1]
+
+#print(numComments,ws,len(commentsList),commentsList)
 
 
 
