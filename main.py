@@ -41,7 +41,6 @@ soup2 = BeautifulSoup(driver.page_source,'html.parser')
 
 originalImage = soup2.find('img',class_='TZM0T _2NIJr')['src']
 
-#description = soup2.find('div',id='description')
 
 postNumbers = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
 
@@ -53,16 +52,7 @@ numViews = postNumbers.contents[0].contents[2].contents[0].contents[1].contents[
 
 timePosted = soup2.find('span',class_='_12Yqs _1lf7Q')
 
-print(timePosted)
 
-numFavourites = postDatas.contents[0].contents[0].contents[0].contents[0].contents[0].contents[1]
 
-numComments = postDatas.contents[0].contents[1].contents[0].contents[0].contents[0].contents[1]
-
-numViews = postDatas.contents[0].contents[2].contents[0].contents[1].contents[0]
-
-#postCommentsData =  soup2.find_all('div',class_='_2VfPz _1LomQ')
-
-#print(postCommentsData)
 
 
