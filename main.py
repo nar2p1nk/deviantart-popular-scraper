@@ -50,8 +50,13 @@ numComments = postNumbers.contents[0].contents[1].contents[0].contents[0].conten
 
 numViews = postNumbers.contents[0].contents[2].contents[0].contents[1].contents[0]
 
-timePosted = soup2.find('span',class_='_12Yqs _1lf7Q')
+timePosted = soup2.find('span',class_='_12Yqs _1lf7Q').contents[1]
 
+datetimePosted = timePosted['datetime'][0:10] + ' ' + timePosted['datetime'][11:19]
+
+timePostedTitleUTC = timePosted['aria-label']
+
+timePostedTitleGmt =  timePosted['title']
 
 
 
