@@ -15,7 +15,6 @@ class User(BaseModel):
 
 class Post(BaseModel):
     postId = AutoField(primary_key=True)
-
 # commented because it's probably either gonna be stored
 # in a CDN or served locally, i haven't decided yet(sorry)
 #    displayImageLink = CharField()
