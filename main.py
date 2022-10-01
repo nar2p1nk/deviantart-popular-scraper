@@ -3,6 +3,9 @@ from selenium import webdriver
 import string
 import requests
 import shutil
+import model
+import os 
+
 
 ws = string.whitespace
 
@@ -64,10 +67,13 @@ for divCard in divCards:
     
     timePostedTitleGmt =  timePosted['title']
 
-
     r = requests.get(displayImage,stream=True)
 
     re = requests.get(originalImage,stream=True)
+
+    rex = requests.get(userProfileLink,stream=True)
+
+    print(username)
 
     if r.status_code and re.status_code == 200:
 
@@ -75,20 +81,34 @@ for divCard in divCards:
 
         re.raw.decode_content = True
 
-        displayFilename = 'display ' + postTitle
+        filename = postTitle.replace(' ','_').lower()
 
-        originalFilename = 'original ' + postTitle
 
-        with open('./images/display/'+postTitle.replace(' ','_').lower(),'wb') as f:
+        with open('./images/display/'+filename,'wb') as f:
             shutil.copyfileobj(r.raw,f)
 
-            print('display file: '+postTitle+'. downloaded')
+            print('display file: '+filename+'. downloaded')
 
-        with open('./images/original/'+postTitle.replace(' ','_').lower(),'wb') as f:
+        with open('./images/original/'+filename,'wb') as f:
             shutil.copyfileobj(re.raw,f)
 
-            print('original file: '+postTitle+'. downloaded')
+            print('original file: '+filename+'. downloaded')
 
+        with open('./images/profilePictures/'+username,'wb') as f:
+            shutil.copyfileobj(re.raw,f)
+
+            print('profile picture: '+username+'. downloaded')
+
+        user = model.OtherUser(username=username,profilePicture=os.path.abspath('images/profilePictures/'+username))
+
+        post = model.OtherPost(postTitle=postTitle,displayImageLink=os.path.abspath('images/display/'+filename),
+                               originalImageLink = os.path.abspath('images/original/'+filename),
+                               numFavourites=numFavourites,numViews=numViews,numComments=numComments,PostedBy=username,timePosted=datetimePosted)
+
+        user.save()
+        print('user: '+username+'. saved')
+        post.save()
+        print('post: '+postTitle+'. saved')
     else:
         print('err')
 
