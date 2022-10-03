@@ -53,12 +53,18 @@ for divCard in divCards:
     
     postNumbers = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
     
-    numFavourites = postNumbers.contents[0].contents[0].contents[0].contents[0].contents[0].contents[1]
+    numFavourites = postNumbers.contents[0].contents[0].contents[0].contents[0].contents[0].contents[1].contents[0].contents[0]
     
+    numFavourites = numFavourites[:len(numFavourites) - 1] +'000' if numFavourites[-1] == 'K' else numFavourites
+
     numComments = postNumbers.contents[0].contents[1].contents[0].contents[0].contents[0].contents[1].contents[0].contents[0]
+
+    numComments = numComments[:len(numComments) - 1] + '000' if numComments[-1] == 'K' else numComments
     
-    numViews = postNumbers.contents[0].contents[2].contents[0].contents[1].contents[0]
-    
+    numViews = postNumbers.contents[0].contents[2].contents[0].contents[1].contents[0].contents[0]
+
+    numViews = numViews[:len(numViews) -1 ] + '000' if numViews[-1] == 'K' else numViews
+
     timePosted = soup2.find('span',class_='_12Yqs _1lf7Q').contents[1]
     
     datetimePosted = timePosted['datetime'][0:10] + ' ' + timePosted['datetime'][11:19]
@@ -72,8 +78,6 @@ for divCard in divCards:
     re = requests.get(originalImage,stream=True)
 
     rex = requests.get(userProfileLink,stream=True)
-
-    print(username)
 
     if r.status_code and re.status_code == 200:
 
