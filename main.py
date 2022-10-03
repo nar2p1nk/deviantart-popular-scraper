@@ -32,7 +32,7 @@ for divCard in divCards:
 
     username = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0]['data-username']
     
-    userProfilePic = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0].contents[0]['src']
+#    userProfilePic = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0].contents[0]['src']
     
     userProfileLink = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0]['href']
     
@@ -49,8 +49,9 @@ for divCard in divCards:
     soup2 = BeautifulSoup(driver.page_source,'html.parser')
     
     originalImage = soup2.find('img',class_='TZM0T _2NIJr')['src']
-    #_1O2S9 _19exo
     
+    userProfilePic = soup2.find('img',alt=username+'\'s avatar')['src']
+
     postNumbers = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
     
     numFavourites = postNumbers.contents[0].contents[0].contents[0].contents[0].contents[0].contents[1].contents[0].contents[0]
@@ -73,11 +74,13 @@ for divCard in divCards:
     
     timePostedTitleGmt =  timePosted['title']
 
+    print(username+'\'s avatar')
+
     r = requests.get(displayImage,stream=True)
 
     re = requests.get(originalImage,stream=True)
 
-    rex = requests.get(userProfileLink,stream=True)
+    rex = requests.get(userProfilePic,stream=True)
 
     if r.status_code and re.status_code == 200:
 
@@ -94,7 +97,7 @@ for divCard in divCards:
         else:
             True
             with open('./images/profilePictures/'+username,'wb') as f:
-                shutil.copyfileobj(re.raw,f)
+                shutil.copyfileobj(rex.raw,f)
 
             print('profile picture: '+username+'. downloaded')
             user = model.OtherUser(username=username,profilePicture=os.path.abspath('images/profilePictures/'+username))
