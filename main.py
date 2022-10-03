@@ -88,31 +88,41 @@ for divCard in divCards:
         filename = postTitle.replace(' ','_').lower()
 
 
-        with open('./images/display/'+filename,'wb') as f:
-            shutil.copyfileobj(r.raw,f)
-
-            print('display file: '+filename+'. downloaded')
-
-        with open('./images/original/'+filename,'wb') as f:
-            shutil.copyfileobj(re.raw,f)
-
-            print('original file: '+filename+'. downloaded')
-
-        with open('./images/profilePictures/'+username,'wb') as f:
-            shutil.copyfileobj(re.raw,f)
+        if model.OtherUser.get_or_none(username=username):
+            print('user: '+username+' already exist')
+            pass
+        else:
+            True
+            with open('./images/profilePictures/'+username,'wb') as f:
+                shutil.copyfileobj(re.raw,f)
 
             print('profile picture: '+username+'. downloaded')
+            user = model.OtherUser(username=username,profilePicture=os.path.abspath('images/profilePictures/'+username))
+            user.save()
+            print('user: '+username+'. saved')
 
-        user = model.OtherUser(username=username,profilePicture=os.path.abspath('images/profilePictures/'+username))
 
-        post = model.OtherPost(postTitle=postTitle,displayImageLink=os.path.abspath('images/display/'+filename),
-                               originalImageLink = os.path.abspath('images/original/'+filename),
-                               numFavourites=numFavourites,numViews=numViews,numComments=numComments,PostedBy=username,timePosted=datetimePosted)
+        if model.OtherPost.get_or_none(postTitle=postTitle):
+            print('post: '+postTitle+' already exist')
+            False
+        else:
+            True
+            with open('./images/display/'+filename,'wb') as f:
+                shutil.copyfileobj(r.raw,f)
 
-        user.save()
-        print('user: '+username+'. saved')
-        post.save()
-        print('post: '+postTitle+'. saved')
+                print('display file: '+filename+'. downloaded')
+
+            with open('./images/original/'+filename,'wb') as f:
+                shutil.copyfileobj(re.raw,f)
+
+                print('original file: '+filename+'. downloaded')
+
+            post = model.OtherPost(postTitle=postTitle,displayImageLink=os.path.abspath('images/display/'+filename),
+                                   originalImageLink = os.path.abspath('images/original/'+filename),
+                                   numFavourites=numFavourites,numViews=numViews,numComments=numComments,PostedBy=username,timePosted=datetimePosted)
+            post.save()
+            print('post: '+postTitle+'. saved')
+
     else:
         print('err')
 
