@@ -5,7 +5,7 @@ from peewee import(
     DateTimeField
 )
 
-db = SqliteDatabase('test.db')
+db = SqliteDatabase('main.db')
 
 class BaseModel(Model):
     class Meta:
