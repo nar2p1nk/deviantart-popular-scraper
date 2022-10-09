@@ -2,4 +2,4 @@ geckodriver.log
 *.db
 test.py
 images/
-./__pycache__
+__pycache__/
