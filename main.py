@@ -6,7 +6,6 @@ import shutil
 import model
 import os 
 
-
 ws = string.whitespace
 
 url = 'https://www.deviantart.com/popular/deviations'
@@ -74,8 +73,6 @@ for divCard in divCards:
     
     timePostedTitleGmt =  timePosted['title']
 
-    print(username+'\'s avatar')
-
     r = requests.get(displayImage,stream=True)
 
     re = requests.get(originalImage,stream=True)
@@ -95,36 +92,50 @@ for divCard in divCards:
             print('user: '+username+' already exist')
             pass
         else:
-            True
-            with open('./images/profilePictures/'+username,'wb') as f:
-                shutil.copyfileobj(rex.raw,f)
+            if os.path.exists('images/profilePictures'+username) == False:
+                with open('./images/profilePictures/'+username,'wb') as f:
+                    shutil.copyfileobj(rex.raw,f)
+                    print('profile picture: '+username+'. downloaded')
+            else:
+                print('profile picture for user: '+username+' already exist')
 
-            print('profile picture: '+username+'. downloaded')
-            user = model.OtherUser(username=username,profilePicture=os.path.abspath('images/profilePictures/'+username))
+            user = model.OtherUser(username=username,profilePicture='images/profilePictures'+username)
             user.save()
             print('user: '+username+'. saved')
 
 
         if model.OtherPost.get_or_none(postTitle=postTitle):
             print('post: '+postTitle+' already exist')
-            False
+            pass
         else:
             True
-            with open('./images/display/'+filename,'wb') as f:
-                shutil.copyfileobj(r.raw,f)
 
-                print('display file: '+filename+'. downloaded')
+            if os.path.exists('images/display/'+filename) == False:
+                with open('./images/display/'+filename,'wb') as f:
+                    shutil.copyfileobj(r.raw,f)
 
-            with open('./images/original/'+filename,'wb') as f:
-                shutil.copyfileobj(re.raw,f)
+                    print('display file: '+filename+'. downloaded')
+            else:
+                print('display image: '+filename+' already exist')
+                pass
 
+            if os.path.exists('images/original/'+filename) == False:
+                with open('./images/original/'+filename,'wb') as f:
+                    shutil.copyfileobj(re.raw,f)
+            
                 print('original file: '+filename+'. downloaded')
 
-            post = model.OtherPost(postTitle=postTitle,displayImageLink=os.path.abspath('images/display/'+filename),
-                                   originalImageLink = os.path.abspath('images/original/'+filename),
-                                   numFavourites=numFavourites,numViews=numViews,numComments=numComments,PostedBy=username,timePosted=datetimePosted)
-            post.save()
-            print('post: '+postTitle+'. saved')
+            else:
+                print('original image: '+filename+' already exist')
+                pass
+                
+                userquery = model.OtherUser.get(model.OtherUser.username == username)
+
+                post = model.OtherPost(postTitle=postTitle,displayImageLink='images/display/'+filename,
+                                       originalImageLink ='images/original/'+filename,numFavourites=numFavourites,numViews=numViews,
+                                       numComments=numComments,PostedBy=userquery.otherId,timePosted=datetimePosted)
+                post.save()
+                print('post: '+postTitle+'. saved')
 
     else:
         print('err')

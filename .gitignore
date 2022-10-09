@@ -1,4 +1,4 @@
 geckodriver.log
-test.db
+*.db
 test.py
 images/

@@ -47,6 +47,7 @@ class OtherPost(BaseModel):
     timePosted = DateTimeField()
 
 
+
 db.connect()
 
 db.create_tables([User,Post,OtherUser,OtherPost])
