@@ -92,7 +92,7 @@ for divCard in divCards:
             print('user: '+username+' already exist')
             pass
         else:
-            if os.path.exists('images/profilePictures'+username) == False:
+            if os.path.exists('images/profilePictures/'+username) == False:
                 with open('./images/profilePictures/'+username,'wb') as f:
                     shutil.copyfileobj(rex.raw,f)
                     print('profile picture: '+username+'. downloaded')
