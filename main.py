@@ -5,7 +5,6 @@ import requests
 import shutil
 import model
 import os 
-
 ws = string.whitespace
 
 url = 'https://www.deviantart.com/popular/deviations'
@@ -35,7 +34,7 @@ for divCard in divCards:
     
     userProfileLink = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0]['href']
     
-    postTitle = divCard.contents[0]['aria-label']
+#    postTitle = divCard.contents[0]['aria-label']
     
     postLink = divCard.contents[0]['href']
     
@@ -46,6 +45,7 @@ for divCard in divCards:
     driver.get(postLink)
     
     soup2 = BeautifulSoup(driver.page_source,'html.parser')
+
     
     originalImage = soup2.find('img',class_='TZM0T _2NIJr')['src']
     
@@ -53,6 +53,8 @@ for divCard in divCards:
 
     postNumbers = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
     
+    postTitle = soup2.find('h1',class_='_33gAi _3HLSN').contents[0]
+
     numFavourites = postNumbers.contents[0].contents[0].contents[0].contents[0].contents[0].contents[1].contents[0].contents[0]
     
     numFavourites = numFavourites[:len(numFavourites) - 1] +'000' if numFavourites[-1] == 'K' else numFavourites
@@ -85,6 +87,7 @@ for divCard in divCards:
 
         re.raw.decode_content = True
 
+
         filename = postTitle.replace(' ','_').lower()
 
 
@@ -114,13 +117,13 @@ for divCard in divCards:
                 with open('./images/display/'+filename,'wb') as f:
                     shutil.copyfileobj(r.raw,f)
 
-                    print('display file: '+filename+'. downloaded')
+                    print('display file: '+postTitle+'. downloaded')
             else:
-                print('display image: '+filename+' already exist')
+                print('display image: '+postTitle+' already exist')
                 pass
 
-            if os.path.exists('images/original/'+filename) == False:
-                with open('./images/original/'+filename,'wb') as f:
+            if os.path.exists('images/original/Original'+filename) == False:
+                with open('./images/original/Original'+filename,'wb') as f:
                     shutil.copyfileobj(re.raw,f)
             
                 print('original file: '+filename+'. downloaded')
