@@ -7,7 +7,7 @@ import model
 import os 
 ws = string.whitespace
 
-url = 'https://www.deviantart.com/popular/deviations'
+url = 'https://www.deviantart.com/topic/fantasy'
 
 htmlClass = 'uU5En = deviantion title| MvjoN = user data| ._3_LJY = image|_121Hz'
 
