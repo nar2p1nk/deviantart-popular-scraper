@@ -28,11 +28,10 @@ num = 0
 
 for divCard in divCards:
 
-    username = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0]['data-username']
     
 #    userProfilePic = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0].contents[0]['src']
     
-    userProfileLink = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0]['href']
+#    userProfileLink = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0]['href']
     
 #    postTitle = divCard.contents[0]['aria-label']
     
@@ -46,6 +45,8 @@ for divCard in divCards:
     
 
     soup2 = BeautifulSoup(driver.page_source,'html.parser')
+
+    username = soup2.find('span',class_='_12F3u').contents[0]
 
     postTitle = soup2.find('h1',attrs={'data-hook':'deviation_title'}).contents[0]
 
