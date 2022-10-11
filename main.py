@@ -7,7 +7,7 @@ import model
 import os 
 ws = string.whitespace
 
-url = 'https://www.deviantart.com/topic/fantasy'
+url = 'https://www.deviantart.com/'
 
 htmlClass = 'uU5En = deviantion title| MvjoN = user data| ._3_LJY = image|_121Hz'
 
@@ -44,16 +44,18 @@ for divCard in divCards:
     
     driver.get(postLink)
     
+
     soup2 = BeautifulSoup(driver.page_source,'html.parser')
 
-    
+    postTitle = soup2.find('h1',attrs={'data-hook':'deviation_title'}).contents[0]
+
     originalImage = soup2.find('img',class_='TZM0T _2NIJr')['src']
     
     userProfilePic = soup2.find('img',alt=username+'\'s avatar')['src']
 
     postNumbers = soup2.find('div',class_='_1p-42 _6G8rT _39R1e')
     
-    postTitle = soup2.find('h1',class_='_33gAi _3HLSN').contents[0]
+    print(postTitle)
 
     numFavourites = postNumbers.contents[0].contents[0].contents[0].contents[0].contents[0].contents[1].contents[0].contents[0]
     
