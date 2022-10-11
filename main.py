@@ -114,34 +114,40 @@ for divCard in divCards:
             print('post: '+postTitle+' already exist')
             pass
         else:
-            True
+            userquery = model.OtherUser.get(model.OtherUser.username == username)
 
-            if os.path.exists('images/display/'+filename) == False:
-                with open('./images/display/'+filename,'wb') as f:
-                    shutil.copyfileobj(r.raw,f)
+            post = model.OtherPost(postTitle=postTitle,displayImageLink='images/display/'+filename,
+                                       originalImageLink ='images/original/'+filename,numFavourites=numFavourites,numViews=numViews,
+                                       numComments=numComments,PostedBy=userquery.otherId,timePosted=datetimePosted)
+            post.save()
+            print('post: '+postTitle+'. saved')
 
-                    print('display file: '+postTitle+'. downloaded')
-            else:
-                print('display image: '+postTitle+' already exist')
-                pass
+        if os.path.exists('images/display/'+filename) == False:
+            with open('./images/display/'+filename,'wb') as f:
+                shutil.copyfileobj(r.raw,f)
 
-            if os.path.exists('images/original/Original'+filename) == False:
-                with open('./images/original/Original'+filename,'wb') as f:
-                    shutil.copyfileobj(re.raw,f)
+                print('display file: '+postTitle+'. downloaded')
+        else:
+            print('display image: '+postTitle+' already exist')
+            pass
+
+        if os.path.exists('images/original/Original'+filename) == False:
+            with open('./images/original/Original'+filename,'wb') as f:
+                shutil.copyfileobj(re.raw,f)
             
                 print('original file: '+filename+'. downloaded')
 
-            else:
-                print('original image: '+filename+' already exist')
-                pass
+        else:
+            print('original image: '+filename+' already exist')
+            pass
                 
-                userquery = model.OtherUser.get(model.OtherUser.username == username)
+#                userquery = model.OtherUser.get(model.OtherUser.username == username)
 
-                post = model.OtherPost(postTitle=postTitle,displayImageLink='images/display/'+filename,
-                                       originalImageLink ='images/original/'+filename,numFavourites=numFavourites,numViews=numViews,
-                                       numComments=numComments,PostedBy=userquery.otherId,timePosted=datetimePosted)
-                post.save()
-                print('post: '+postTitle+'. saved')
+#                post = model.OtherPost(postTitle=postTitle,displayImageLink='images/display/'+filename,
+#                                      originalImageLink ='images/original/'+filename,numFavourites=numFavourites,numViews=numViews,
+#                                       numComments=numComments,PostedBy=userquery.otherId,timePosted=datetimePosted)
+#                post.save()
+#                print('post: '+postTitle+'. saved')
 
     else:
         print('err')
