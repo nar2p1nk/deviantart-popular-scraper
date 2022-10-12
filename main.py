@@ -7,7 +7,7 @@ import model
 import os 
 ws = string.whitespace
 
-url = 'https://www.deviantart.com/topic/pixel-art'
+url = 'https://www.deviantart.com'
 
 driver = webdriver.Firefox()
 
@@ -22,13 +22,20 @@ num = 0
 
 for divCard in divCards:
 
+
+    try:
+        postLink = divCard.contents[0]['href']
     
-    postLink = divCard.contents[0]['href']
-    
-    displayImage = divCard.contents[0].contents[0].contents[0]['src']
-    
-    
-    driver.get(postLink)
+
+        displayImage = divCard.contents[0].contents[0].contents[0]['src']
+ 
+       
+        driver.get(postLink)
+
+
+    except:
+        pass
+   
     
 
     soup2 = BeautifulSoup(driver.page_source,'html.parser')
