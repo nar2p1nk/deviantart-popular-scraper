@@ -7,7 +7,7 @@ import model
 import os 
 ws = string.whitespace
 
-url = 'https://www.deviantart.com/'
+url = 'https://www.deviantart.com/topic/pixel-art'
 
 htmlClass = 'uU5En = deviantion title| MvjoN = user data| ._3_LJY = image|_121Hz'
 
@@ -50,7 +50,7 @@ for divCard in divCards:
 
     postTitle = soup2.find('h1',attrs={'data-hook':'deviation_title'}).contents[0]
 
-    originalImage = soup2.find('img',class_='TZM0T _2NIJr')['src']
+    originalImage = soup2.find('img',alt=postTitle)['src']
     
     userProfilePic = soup2.find('img',alt=username+'\'s avatar')['src']
 
