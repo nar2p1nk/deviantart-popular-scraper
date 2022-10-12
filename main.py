@@ -9,12 +9,6 @@ ws = string.whitespace
 
 url = 'https://www.deviantart.com/topic/pixel-art'
 
-htmlClass = 'uU5En = deviantion title| MvjoN = user data| ._3_LJY = image|_121Hz'
-
-#@PATH = r'/usercode.chomedriver'
-
-#driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-
 driver = webdriver.Firefox()
 
 driver.get(url)
@@ -29,17 +23,10 @@ num = 0
 for divCard in divCards:
 
     
-#    userProfilePic = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0].contents[0]['src']
-    
-#    userProfileLink = divCard.contents[1].contents[3].contents[1].contents[0].contents[1].contents[0].contents[0]['href']
-    
-#    postTitle = divCard.contents[0]['aria-label']
-    
     postLink = divCard.contents[0]['href']
     
     displayImage = divCard.contents[0].contents[0].contents[0]['src']
     
-#    postImageSrcSet = divCard.contents[0].contents[0].contents[0]['srcset']
     
     driver.get(postLink)
     
