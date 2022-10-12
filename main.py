@@ -105,7 +105,7 @@ for divCard in divCards:
             else:
                 print('profile picture for user: '+username+' already exist')
 
-            user = model.OtherUser(username=username,profilePicture='images/profilePictures'+username)
+            user = model.OtherUser(username=username,profilePicture='images/profilePictures/'+username)
             user.save()
             print('user: '+username+'. saved')
 
