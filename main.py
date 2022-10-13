@@ -110,7 +110,7 @@ for divCard in divCards:
             post.save()
             print('post: '+postTitle+'. saved')
 
-        if os.path.exists('images/display/_'+filename) == False:
+        if os.path.exists('images/display/Display_'+filename) == False:
             with open('./images/display/Display_'+filename,'wb') as f:
                 shutil.copyfileobj(r.raw,f)
 
